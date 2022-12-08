@@ -1,3 +1,4 @@
+# reads path into an array
 function readdatamat(path,T=Any)
     # no checks!
     rows = open(path) do file
@@ -12,6 +13,11 @@ function readdatamat(path,T=Any)
     return(res)
 end
 
+# apply a function f to rhe rows and columns
+# of a matrix m. f is assumed to return an
+# n x 2 array when given a length-n vector
+# (in this case, the result for the vector coming
+# from the left and from the right)
 function sweepdirections(m,f)
     res = Array{typeof(m[1,1])}(undef,size(m)...,4)
     for i in 1:size(m)[1]
@@ -21,6 +27,9 @@ function sweepdirections(m,f)
     return(res)
 end
 
+# a function to pass to sweepdirections
+# that finds the minimum covered hight from
+# a direction for each position in the vector
 function mincover(v)
     res = zeros(typeof(v[1]),length(v),2)
     res[1,1] = -1
@@ -36,6 +45,9 @@ function mincover(v)
     return(res)
 end
 
+# a function to pass to sweepdirections
+# that finds the view score component from
+# each direction for each point in the vector
 function singleview(v)
     distances = zeros(typeof(v[1]),10,2)
     res = zeros(typeof(v[1]),length(v),2)
@@ -51,6 +63,9 @@ function singleview(v)
     end
     return(res)
 end
+
+# now parts 1 and 2 just need to sweep their respective
+# functions over the array and reduce
 
 function part1(tree_heights)
     directional = sweepdirections(tree_heights,mincover)
