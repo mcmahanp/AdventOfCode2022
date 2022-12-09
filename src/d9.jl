@@ -45,4 +45,4 @@ end
 
 moves = loadinstructions("data/d9.txt")
 println("Part 1: $(tracktail(moves,2))")
-println("Part 1: $(tracktail(moves,10))")
+println("Part 2: $(tracktail(moves,10))")
