@@ -41,7 +41,6 @@ function part2(states)
     end
 end
 
-
 states = registerstates("data/d10.txt")
 part1(states)
 part2(states)
