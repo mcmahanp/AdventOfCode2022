@@ -14,5 +14,6 @@ function findmessage(signal,n=4)
     return nothing
 end
 
+signal = loaddata("data/d6.txt")
 println("Part 1: $(findmessage(signal,4))")
 println("Part 2: $(findmessage(signal,14))")
