@@ -5,7 +5,7 @@ struct Monkey
     test::Function
 end
 
-function loadinput(path,reduction=3)
+function loadinput(path,partone=true)
     lines = open(path) do file
         lines = readlines(file)
     end
@@ -15,7 +15,11 @@ function loadinput(path,reduction=3)
         # inventory
         inventory = parse.(Int,split(slines[i+1][2],","))
         # operation
-        opstring = "old -> div(" * slines[i+2][2][7:end] * ",$(reduction)) % 9699690"
+        if partone 
+            opstring = "old -> div(" * slines[i+2][2][7:end] * ",3)"
+        else 
+            opstring = "old -> (" * slines[i+2][2][7:end] * ") % 9699690"
+        end
         operation = eval(Meta.parse(opstring))
         # test
         d,t,f = [parse(Int,l[end]) for l in split.(lines[i+3:i+5])]
@@ -40,8 +44,8 @@ function monkeybusiness(monkeys,rounds)
     return(prod(inspected[end-1:end]))
 end
 
-monkeys = loadinput("data/d11.txt",3)
+monkeys = loadinput("data/d11.txt",true)
 println("Part 1: $(monkeybusiness(monkeys,20))")
-monkeys = loadinput("data/d11.txt",1)
+monkeys = loadinput("data/d11.txt",false)
 println("Part 2: $(monkeybusiness(monkeys,10000))")
 
