@@ -93,10 +93,10 @@ function rowcoverage(y,sensors)
     end
     return(covered,beacons)
 end
-function unscanned(sensors::Vector{Sensor},xrange::UnitRange{Int},yrange::UnitRange{Int},printat=nothing)
+function unscanned(sensors::Vector{Sensor},xrange::UnitRange{Int},yrange::UnitRange{Int},printat=-1)
     res = Vector{Vector{Int}}()
     for y in yrange
-        if !isnothing(printat) & ((y % printat)==0)
+        if (printat > 0) & ((y % printat)==0)
             println(y)
         end
         covered = rowcoverage(y,sensors)[1]
@@ -118,6 +118,6 @@ sensors = loadinput("data/d15.txt")
 part1 = rowcoverage(2000000,sensors)
 println("Part 1: $(size(part1[1])-length(part1[2]))")
 
-part2 = unscanned(sensors,0:4000000,0:4000000,500000)[1]
+part2 = unscanned(sensors,0:4000000,0:4000000)[1]
 println("Part 2: $(part2[1]*4000000 + part2[2])")
 
